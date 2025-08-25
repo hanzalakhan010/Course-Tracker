@@ -1,14 +1,18 @@
+import Button from '@/components/ui/Button'
+import DummyLogo from '@/components/Logo'
+import Input from '@/components/ui/Input'
 import { LoaderCircle, Lock, Mail } from 'lucide-react'
 import { type ChangeEvent, type FormEvent, useState } from 'react'
-import Button from '@/components/Button'
-import Input from '@/components/Input'
-import DummyLogo from '@/components/Logo'
+import { Link } from 'react-router'
+import { loginUser } from '@/features/Auth'
+import { type Rootstate, type AppDispatch } from '@/app/store'
+import { useDispatch, useSelector, } from 'react-redux'
 
 function Login() {
     const [user, setUser] = useState({ email: '', password: '' })
     const [errors, setErrors] = useState({ email: '', password: '' })
-    const [showLoader, setShowLoader] = useState(false)
-
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error } = useSelector((state: Rootstate) => state.Auth);
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target
         setUser({ ...user, [name]: value })
@@ -33,21 +37,14 @@ function Login() {
             return
         }
 
-        setShowLoader(true)
-
-        // Mimic API request
-        setTimeout(() => {
-            setShowLoader(false)
-            console.log('Login successful:', user)
-            alert('Login successful!')
-        }, 2000)
+        dispatch(loginUser({ ...user }))
     }
 
     return (
         <div className="flex min-h-screen items-center justify-center">
             <div className="w-full max-w-md rounded-lg bg-white p-6">
                 <DummyLogo />
-                <h2 className="mb-8 text-center text-2xl font-semibold text-gray-800">Login to Flexy UI</h2>
+                <h2 className="mb-8 text-center text-2xl font-semibold text-gray-800">Login to Course Tracker ++</h2>
                 <form onSubmit={handleSubmit} className="">
                     <Input
                         type="email"
@@ -79,22 +76,24 @@ function Login() {
                     </div>
                     <Button
                         className="h-10 w-full bg-neutral-800 hover:bg-neutral-700"
-                        disabled={showLoader}
-                        loading={showLoader}
+                        disabled={loading}
+                        loading={loading}
                         type="submit"
                     >
-                        {showLoader ? <LoaderCircle className="animate-spin" color="#fff" /> : 'Sign in'}
+                        {loading ? <LoaderCircle className="animate-spin" color="#fff" /> : 'Sign in'}
                     </Button>
+                    {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
+
                 </form>
                 {/* Sign-up Link */}
                 <div className="mt-4 text-center">
                     <span className="text-sm text-gray-600">New here? </span>
-                    <a
-                        href="javascript:void(0)"
+                    <Link
+                        to="/signup"
                         className="text-sm font-medium text-blue-600 hover:underline"
                     >
                         Sign up
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
