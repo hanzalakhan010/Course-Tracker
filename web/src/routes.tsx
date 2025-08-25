@@ -1,10 +1,35 @@
-import { createRoutesFromElements, Routes, Route } from "react-router";
+import { Layout } from "@/components/ui/Layout"
+import { createRoutesFromElements, Route } from "react-router"
 
+// Pages
+import LoginPage from "@/pages/Login"
+import SignUpPage from "./components/Signup"
+// import SignupPage from "@/pages/Signup"
+// import CoursesPage from "@/pages/Courses"
+// import TodosPage from "@/pages/Todos"
 
 export const routes = createRoutesFromElements(
-    <Routes>
-        <Route element={<></>}>
-            <Route path="/" element= {}/>
-        </Route>
-    </Routes>
+    <Route path="/" element={<Layout />}>
+        {/* Public Routes */}
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
+
+        {/* Protected Routes */}
+        {/* <Route
+            path="courses"
+            element={
+                <ProtectedRoute>
+                    <CoursesPage />
+                </ProtectedRoute>
+            }
+        />
+        <Route
+            path="todos"
+            element={
+                <ProtectedRoute>
+                    <TodosPage />
+                </ProtectedRoute>
+            }
+        /> */}
+    </Route>
 )
