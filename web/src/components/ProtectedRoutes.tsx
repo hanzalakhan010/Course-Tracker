@@ -8,9 +8,9 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-    const userId = useSelector((state: Rootstate) => state.Auth.user_id)
-
-    if (!userId) {
+    const user_email = useSelector((state: Rootstate) => state.Auth.user_email)
+    console.log(user_email)
+    if (!user_email) {
         return <Navigate to="/login" replace />
     }
 
