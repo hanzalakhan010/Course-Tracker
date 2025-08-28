@@ -1,3 +1,4 @@
+import { server } from "@/constants";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -15,10 +16,10 @@ const initialAuthState: AuthState = {
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(
-  "auth/loginUser",
+  "auth/login",
   async (credentials: { email: string; password: string }, thunkAPI) => {
     try {
-      const response = await axios.post("/api/auth/login", credentials);
+      const response = await axios.post(`${server}/api/auth/login`, credentials);
       return response.data; // return { user_id, token, ... }
     } catch (err: any) {
       return thunkAPI.rejectWithValue(err.response?.data?.message || "Login failed");
