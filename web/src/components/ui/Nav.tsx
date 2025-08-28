@@ -1,8 +1,9 @@
-import type { Rootstate } from '../app/store'
-import { CircleFadingPlus, MenuIcon, XIcon } from 'lucide-react'
+import { type AppDispatch, type Rootstate } from '../../app/store'
+import { MenuIcon, XIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '@/features/Auth'
+import { logoutUser } from '@/features/Auth'
+import { Link } from 'react-router'
 
 const publicNavLinks = [
   { title: 'Sign Up', link: '/signup' },
@@ -17,15 +18,15 @@ const protectedNavLinks = [
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false)
-  const dispatch = useDispatch()
-  const userId = useSelector((state: Rootstate) => state.Auth.user_id)
+  const dispatch = useDispatch<AppDispatch>()
+  const user_email = useSelector((state: Rootstate) => state.Auth.user_email)
 
   const handleShowNav = () => {
     setShowNav(!showNav)
   }
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logoutUser())
   }
 
   return (
@@ -60,18 +61,18 @@ const Navbar = () => {
           {/* nav links */}
           <div className={`${showNav ? "flex-col" : 'hidden flex-row'} w-full md:block md:w-auto`} id="navbar-default">
 
-            {(userId ? protectedNavLinks : publicNavLinks).map(
+            {(user_email ? protectedNavLinks : publicNavLinks).map(
               ({ title, link }, index) => (
-                <a
+                <Link
                   key={index}
-                  href={link}
+                  to={link}
                   className="rounded-md px-3 py-2 text-slate-500 transition-colors duration-100 ease-linear hover:bg-gray-700 hover:text-white"
                 >
                   {title}
-                </a>
+                </Link>
               )
             )}
-            {userId && (
+            {user_email && (
               <button
                 onClick={handleLogout}
                 className="rounded-md px-3 py-2 text-red-500 transition-colors duration-100 ease-linear hover:bg-red-600 hover:text-white"
