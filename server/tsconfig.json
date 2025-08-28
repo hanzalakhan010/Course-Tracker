@@ -13,6 +13,7 @@
     // Type Definitions
     "lib": ["esnext"],
     "types": ["node", "express", "cors"], // ✅ explicitly include express + cors
+    "typeRoots": ["./types", "./node_modules/@types"],
     "skipLibCheck": true, // ✅ avoid duplicate type conflicts
 
     // Outputs
@@ -33,6 +34,6 @@
     "moduleDetection": "force",
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*","src"],
   "exclude": ["node_modules", "dist"]
 }
