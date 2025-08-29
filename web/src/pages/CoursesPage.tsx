@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { type Rootstate, type AppDispatch } from "@/app/store";
 import { fetchCourses } from "@/features/Courses";
+import { Link } from "react-router";
 
 export const CoursesPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -36,19 +37,22 @@ export const CoursesPage = () => {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {courses.map((course) => (
-                        <div
+                        <Link to={`/course/${course._id}`}
                             key={course._id}
-                            className="border rounded-lg p-4 shadow hover:shadow-lg transition"
                         >
-                            <h2 className="text-xl font-bold mb-2">{course.name}</h2>
-                            <p className="text-sm text-gray-600 mb-2">{course.code}</p>
-                            <p className="text-xs text-gray-500">
-                                Resources: {course.resources?.length || 0}
-                            </p>
-                            <p className="text-xs text-gray-500">
-                                Lectures: {course.lectures?.length || 0}
-                            </p>
-                        </div>
+                            <div
+                                className="border rounded-lg p-4 shadow hover:shadow-lg transition"
+                            >
+                                <h2 className="text-xl font-bold mb-2">{course.name}</h2>
+                                <p className="text-sm text-gray-600 mb-2">{course.code}</p>
+                                <p className="text-xs text-gray-500">
+                                    Resources: {course.resources?.length || 0}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                    Lectures: {course.lectures?.length || 0}
+                                </p>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             )}

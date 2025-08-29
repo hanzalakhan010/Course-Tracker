@@ -2,8 +2,8 @@ import Button from '@/components/ui/Button'
 import DummyLogo from '@/components/Logo'
 import Input from '@/components/ui/Input'
 import { LoaderCircle, Lock, Mail } from 'lucide-react'
-import { type ChangeEvent, type FormEvent, useState } from 'react'
-import { Link } from 'react-router'
+import { type ChangeEvent, type FormEvent, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router'
 import { loginUser } from '@/features/Auth'
 import { type Rootstate, type AppDispatch } from '@/app/store'
 import { useDispatch, useSelector, } from 'react-redux'
@@ -11,8 +11,9 @@ import { useDispatch, useSelector, } from 'react-redux'
 function Login() {
     const [user, setUser] = useState({ email: '', password: '' })
     const [errors, setErrors] = useState({ email: '', password: '' })
+    const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
-    const { loading, error } = useSelector((state: Rootstate) => state.Auth);
+    const { user_email, loading, error } = useSelector((state: Rootstate) => state.Auth);
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target
         setUser({ ...user, [name]: value })
@@ -39,7 +40,11 @@ function Login() {
 
         dispatch(loginUser({ ...user }))
     }
-
+    useEffect(() => {
+        if (user_email) {
+            navigate('/')
+        }
+    }, [user,navigate])
     return (
         <div className="flex min-h-screen items-center justify-center">
             <div className="w-full max-w-md rounded-lg bg-white p-6">
