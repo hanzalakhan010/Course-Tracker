@@ -59,7 +59,7 @@ export const fetchCourses = createAsyncThunk(
 // Add a new course for the student
 export const addCourse = createAsyncThunk(
   "courses/addCourse",
-  async (courseData: { name: string; code: string }, thunkAPI) => {
+  async (courseData: { title: string; code: string }, thunkAPI) => {
     try {
       const response = await axios.post(`${server}/api/courses`, courseData, {
         withCredentials: true,
