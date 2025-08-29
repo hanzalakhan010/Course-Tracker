@@ -13,6 +13,7 @@ const publicNavLinks = [
 const protectedNavLinks = [
   { title: 'All Courses', link: '/' },
   { title: 'My Notes', link: '/notes' },
+  { title: 'Add Course', link: '/addcourse' },
   { title: 'Analytics', link: '/analytics' },
 ]
 
