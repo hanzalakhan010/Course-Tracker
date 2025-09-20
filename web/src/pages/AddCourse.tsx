@@ -68,7 +68,7 @@ export const AddCoursePage = () => {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-indigo-600 py-2 font-medium text-white transition hover:bg-indigo-700"
+                        className="w-full rounded-lg bg-[#fb991c] py-2 font-medium text-white transition hover:bg-indigo-700"
                     >
                         Add Course
                     </button>
