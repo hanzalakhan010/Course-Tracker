@@ -1,4 +1,5 @@
 // courseSlice.ts
+import { server } from "@/constants";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -26,7 +27,8 @@ const initialState: CourseState = {
 export const fetchCourseById = createAsyncThunk(
   "course/fetchById",
   async (id: string) => {
-    const res = await axios.get(`/api/courses/${id}`);
+    console.log("debug");
+    const res = await axios.get(`${server}/api/courses/${id}`,{withCredentials:true});
     return res.data as Course;
   }
 );
